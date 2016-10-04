@@ -116,7 +116,6 @@ let Brownies = new Chef(KueCoklat);
 let BrowniesMatang = new Oven(KueCoklat);
 
 Brownies.getRecipe();
-
 console.log("=== Process ===");
 Brownies.makeBatter();
 BrowniesMatang.bake()
