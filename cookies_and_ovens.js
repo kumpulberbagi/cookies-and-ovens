@@ -9,56 +9,55 @@
 //
 // Your code here
 //class cookies
-function random(){
-  return ((Math.random())+1).toFixed(2)
-}
 
 class Kue {
-  constructor(nama,status) {
+  constructor(nama,waktu) {
     this.status = this.status;
     this.nama = nama ;
-    this.status = status;
+    this.waktu = waktu;
   }
   displayName(){
     console.log("Kue " +this.nama);
   }
-}
-
-class kacang extends Kue {
-  constructor(nama,waktu,status) {
-    super(nama,waktu,status);
-    this.waktu = 10;
-  }
   Status(){
-    super.displayName();
-    if (this.status > this.waktu  ) {
-      console.log(`Hangus, telat ${ this.status-this.waktu} menit`);
-    }else if (this.status <= this.waktu && this.status > this.waktu*0.9) {
+    switch (this.nama) {
+      case 'kacang':
+        return  10
+        break;
+      case 'keju':
+        return 12
+        break;
+      default:
+
+    }
+  }
+  bake(){
+    if (this.Status() < this.waktu  ) {
+      console.log(`Hangus, telat ${ this.waktu- this.Status()} menit`);
+    }else if (this.Status() === this.waktu) {
       console.log("Matang")
     }else {
-      console.log(`Mentah, kurang ${this.waktu-this.status} menit`);
+      console.log(`Mentah, kurang ${this.Status()-this.waktu} menit`);
     }
   }
 }
 
-class keju extends Kue {
-  constructor(nama,waktu,status) {
-    super(nama,waktu,status);
-    this.waktu = 20;
+class jenis extends Kue {
+  constructor(nama,waktu) {
+    super(nama,waktu);
   }
-  Status(){
+  Check(){
     super.displayName();
-    if (this.status > this.waktu  ) {
-      console.log(`Hangus, telat ${ this.status-this.waktu} menit`);
-    }else if (this.status <= this.waktu && this.status > this.waktu*0.9) {
-      console.log("Matang")
-    }else {
-      console.log(`Mentah, kurang ${this.waktu-this.status} menit`);
-    }
+    super.bake();
   }
 }
-var kuekacang = new kacang("kacang",2);
-kuekacang.Status()
 
-var kusekeju = new keju("keju mza",15)
-kusekeju.Status()
+
+
+var kuekacang = new jenis("kacang",10);
+kuekacang.Check()
+var kuekeju = new jenis("keju",12);
+kuekeju.Check()
+
+// var kusekeju = new keju("keju mza",15)
+// kusekeju.Status()
