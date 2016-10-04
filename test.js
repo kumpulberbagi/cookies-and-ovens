@@ -71,7 +71,7 @@ class PeanutCake extends Cake {
 
 
 
-var testing = new Bake("coklat", 22);
+var testing = new Bake("keju", 22);
 // console.log(testing.baking_result());
 testing.result();
 
