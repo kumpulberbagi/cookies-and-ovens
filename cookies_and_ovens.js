@@ -10,10 +10,13 @@ class Kue
   constructor(kue)
   {
     this._nama = kue['nama']
+    this._status = kue['status']
     this._size = kue['size']
     this._rasa = kue['rasa']
     this._lama_panggang = kue['lama_panggang']
   }
+set status(status){this._status = status}
+get status(){return this._status}
 set nama(nama){this._nama = nama}
 get nama(){return this._nama}
 set size(size){this._size = size}
@@ -63,18 +66,26 @@ class Oven
         console.log('lagi memanggang kue kacang .........');
         if(this.tampung_kue[kue].lama_panggang === lama_memanggang)
         {
+          this.tampung_kue[kue].status = 'selesai'
+          this.tampung_kue[kue].lama_panggang = lama_memanggang
           this.tampung_kue_jadi.push(this.tampung_kue[kue].nama)
           console.log('waktu memanggang kue kacang : '+this.tampung_kue[kue].lama_panggang+" menit");
           console.log('lama memanggang : '+lama_memanggang+' menit'+'\nStatus : Kue selesai dipanggang\n');
         }else if(this.tampung_kue[kue].lama_panggang < lama_memanggang)
         {
+          this.tampung_kue[kue].status = 'hangus'
+            this.tampung_kue[kue].lama_panggang = lama_memanggang
           console.log('waktu memanggang kue kacang : '+this.tampung_kue[kue].lama_panggang+" menit");
           console.log('lama memanggang : '+lama_memanggang+' menit'+'\nStatus : Kue hangus\n');
         }else if(this.tampung_kue[kue].lama_panggang > lama_memanggang)
         {
+          this.tampung_kue[kue].status = 'hampir masak'
+          this.tampung_kue[kue].lama_panggang = lama_memanggang
           console.log('waktu memanggang kue kacang : '+this.tampung_kue[kue].lama_panggang+" menit");
           console.log('lama memanggang : '+lama_memanggang+' menit'+'\nStatus : Kue hampir masak\n');
         }else if(this.tampung_kue[kue].lama_panggang === 0) {
+            this.tampung_kue[kue].status = 'mentah'
+            this.tampung_kue[kue].lama_panggang = lama_memanggang
             console.log('waktu memanggang kue kacang : '+this.tampung_kue[kue].lama_panggang+" menit");
           console.log('lama memanggang : '+lama_memanggang+' menit'+'\nStatus : Kue masih mentah, perlu diolah lebih lanjut\n');
         }
@@ -82,19 +93,27 @@ class Oven
         console.log('lagi memanggang kue coklat .........');
         if(this.tampung_kue[kue].lama_panggang === lama_memanggang)
         {
+          this.tampung_kue[kue].status = 'selesai'
+          this.tampung_kue[kue].lama_panggang = lama_memanggang
           this.tampung_kue_jadi.push(this.tampung_kue[kue].nama)
           console.log('waktu memanggang kue coklat : '+this.tampung_kue[kue].lama_panggang+" menit");
           console.log('lama memanggang : '+lama_memanggang+' menit'+'\nStatus : Kue selesai dipanggang\n');
         }else if(this.tampung_kue[kue].lama_panggang < lama_memanggang)
         {
+          this.tampung_kue[kue].status = 'hangus'
+          this.tampung_kue[kue].lama_panggang = lama_memanggang
           console.log('waktu memanggang kue coklat : '+this.tampung_kue[kue].lama_panggang+" menit");
           console.log('lama memanggang : '+lama_memanggang+' menit'+'\nStatus : Kue hangus\n');
         }else if(this.tampung_kue[kue].lama_panggang > lama_memanggang)
         {
+          this.tampung_kue[kue].status = 'hampir masak'
+          this.tampung_kue[kue].lama_panggang = lama_memanggang
           console.log('waktu memanggang kue coklat : '+this.tampung_kue[kue].lama_panggang+" menit");
           console.log('lama memanggang : '+lama_memanggang+' menit'+'\nStatus : Kue hampir masak\n');
         }else if(this.tampung_kue[kue].lama_panggang === 0) {
-            console.log('waktu memanggang kue coklat : '+this.tampung_kue[kue].lama_panggang+" menit");
+          this.tampung_kue[kue].status = 'mentah'
+          this.tampung_kue[kue].lama_panggang = lama_memanggang
+          console.log('waktu memanggang kue coklat : '+this.tampung_kue[kue].lama_panggang+" menit");
           console.log('lama memanggang : '+lama_memanggang+' menit'+'\nStatus : Kue masih mentah, perlu diolah lebih lanjut\n');
         }
       }
@@ -122,12 +141,14 @@ function random_lama_panggang()
 }
 var properti_kue_kacang = {
   nama:'Kue Kacang',
+  status:'mentah',
   size: 5,
   rasa:'manis kacang',
   lama_panggang:15 //minutes
 }
 var properti_kue_coklat = {
   nama:'Kue Coklat',
+  status:'mentah',
   size: 7,
   rasa:'manis coklat',
   lama_panggang:10 //minutes
@@ -135,7 +156,7 @@ var properti_kue_coklat = {
 var kue_kacang = new KueKacang(properti_kue_kacang)
 var kue_coklat = new KueCoklat(properti_kue_coklat)
 var oven = new Oven()
-console.log('=========== BAKING STORE ==========')
+console.log('=========== BAKING STORE ============')
 console.log('Isi Oven :');
 oven.add_kue(kue_kacang)
 oven.add_kue(kue_coklat)
@@ -144,3 +165,7 @@ console.log(oven.display_kue())
 console.log('=====================================');
 oven.panggang()
 oven.list_kue_jadi()
+console.log('=====================================');
+console.log('=== Status kue setelah dipanggang ===');
+console.log('=====================================');
+console.log(oven.display_kue());
